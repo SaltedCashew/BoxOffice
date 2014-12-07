@@ -9,9 +9,10 @@ package assignment6;
 public class A6Driver
 {
 
-	public A6Driver()
+	public static void main(String[] args)
 	{
-		// TODO Auto-generated constructor stub
+		Theater mainShow = new Theater();
+
 	}
 
 }

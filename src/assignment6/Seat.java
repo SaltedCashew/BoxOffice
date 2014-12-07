@@ -2,7 +2,8 @@ package assignment6;
 
 public class Seat
 {
-	private int row;
+	private String row;
+	private int rowVal;
 	private int seatNum;
 	private enum attribute
 	{
@@ -25,20 +26,33 @@ public class Seat
 		// TODO Auto-generated constructor stub
 	}
 	
-	public Seat(int r, int s)
+	public Seat(String r, int s)
 	{
 		row = r;
+		//rowVal = Integer.parseInt(r);
 		seatNum = s;
 		availability = attribute.AVAILABLE;
 	}
 	
-	public Seat(int r, int s, int sect)
+	public Seat(String r, int s, int sect)
 	{
 		row = r;
+	//	rowVal = Integer.parseInt(r);
 		seatNum = s;
 		availability = attribute.AVAILABLE;
 		section = sect;
 		
+	}
+	
+	public void markSeatHandicap()
+	{
+		availability = attribute.HANDICAP;
+	}
+	
+	@Override
+	public String toString()
+	{
+		return new String("Row " + row + ", Seat " + seatNum);
 	}
 
 }
