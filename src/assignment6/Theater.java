@@ -6,6 +6,7 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.SortedSet;
 import java.util.TreeSet;
+import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.PriorityBlockingQueue;
 
 public class Theater
@@ -26,12 +27,12 @@ public class Theater
 		buildSeats();
 		buildSeatMap();
 		Comparator<Seat> seatPriority = new SeatComparator();
-		seatQueue = new PriorityBlockingQueue<Seat>(seatList.size(), seatPriority);
+		//seatQueue = new PriorityBlockingQueue<Seat>(seatList.size(), seatPriority);
 		tempTree = new TreeSet<Seat>(seatPriority);
 		buildTempTree();
 		//buildSeatQueue();
-		SortedSet<Seat> safeSet = Collections.synchronizedSortedSet(tempTree);
-		for(Seat s : safeSet){System.out.println(s.toString());}
+		safeSet = Collections.synchronizedSortedSet(tempTree);
+		
 	}
 	
 	private void buildTempTree()
@@ -85,15 +86,23 @@ public class Theater
 		}
 	 	
 	}
-	
-	/*
-	private void buildSeatQueue()
+
+	public void printAllSeats()
 	{
-		for(Seat s : seatList)
-		{
-			seatQueue.add(s);
-		}
+		for(Seat s : safeSet){System.out.println(s.toString());}	
 	}
-	*/
+	
+	public Seat sellSeat()
+	{
+		Seat temp = safeSet.first();
+		safeSet.remove(temp);
+		return temp;
+		
+	}
+	
+	public boolean hasTickets()
+	{
+		return !safeSet.isEmpty();
+	}
 
 }

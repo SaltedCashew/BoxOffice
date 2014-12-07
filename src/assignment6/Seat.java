@@ -71,4 +71,16 @@ public class Seat
 		return section;
 	}
 
+	public void markSeatReserved()
+	{
+		this.availability = attribute.RESERVED;
+		
+	}
+	
+	public void markSeatAvailable()
+	{
+		this.availability = attribute.AVAILABLE;
+		
+	}
+
 }
