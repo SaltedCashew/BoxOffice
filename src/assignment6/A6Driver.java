@@ -11,6 +11,10 @@ public class A6Driver
 
 	public static void main(String[] args)
 	{
+		//System.out.println(new String("A").hashCode());
+		//System.out.println(new String("Z").hashCode());
+		//System.out.println(new String("AA").compareTo("A"));
+		//System.out.println(new String("AA").compareTo("N"));
 		Theater mainShow = new Theater();
 
 	}
