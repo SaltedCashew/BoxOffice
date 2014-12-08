@@ -59,7 +59,7 @@ public class BoxOffice implements Runnable
 				showLock.lock();
 				while(show.hasTickets())
 				{
-					temp = show.sellSeat();
+					temp = show.bestAvailableSeat();
 					temp.markSeatReserved();
 					if(line.isEmpty()) {buildQueue();}
 					Person tempPerson = line.pop();

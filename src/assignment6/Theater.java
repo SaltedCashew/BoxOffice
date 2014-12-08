@@ -85,11 +85,15 @@ public class Theater
 		for(Seat s : safeSet){System.out.println(s.toString());}	
 	}
 	
-	public synchronized Seat sellSeat()
+	public synchronized Seat bestAvailableSeat()
 	{
-		Seat temp = safeSet.first();
-		safeSet.remove(temp);
-		return temp;
+		if (safeSet.size()!=0)
+		{
+			Seat temp = safeSet.first();
+			safeSet.remove(temp);
+			return temp;	
+		}
+		else return null;
 		
 	}
 	
