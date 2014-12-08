@@ -9,6 +9,7 @@ public class Seat
 		RESERVED (1),
 		AVAILABLE (2);
 		
+		@SuppressWarnings("unused")
 		private int value;
 
       private attribute(int value) 
@@ -16,6 +17,7 @@ public class Seat
               this.value = value;
       }
 	}
+	@SuppressWarnings("unused")
 	private attribute availability;
 	private int section;
 	

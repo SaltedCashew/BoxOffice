@@ -6,14 +6,9 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.SortedSet;
 import java.util.TreeSet;
-import java.util.concurrent.ArrayBlockingQueue;
-import java.util.concurrent.PriorityBlockingQueue;
 
 public class Theater
 {
-	private String theaterName;
-	//private static TheaterData seatingChart;
-	//private PriorityBlockingQueue<Seat> seatQueue;
 	private ArrayList<Seat> seatList;
 	private HashMap<String, Seat> seatMap;
 	private TreeSet<Seat> tempTree;
@@ -27,10 +22,8 @@ public class Theater
 		buildSeats();
 		buildSeatMap();
 		Comparator<Seat> seatPriority = new SeatComparator();
-		//seatQueue = new PriorityBlockingQueue<Seat>(seatList.size(), seatPriority);
 		tempTree = new TreeSet<Seat>(seatPriority);
 		buildTempTree();
-		//buildSeatQueue();
 		safeSet = Collections.synchronizedSortedSet(tempTree);
 		
 	}
@@ -92,7 +85,7 @@ public class Theater
 		for(Seat s : safeSet){System.out.println(s.toString());}	
 	}
 	
-	public Seat sellSeat()
+	public synchronized Seat sellSeat()
 	{
 		Seat temp = safeSet.first();
 		safeSet.remove(temp);

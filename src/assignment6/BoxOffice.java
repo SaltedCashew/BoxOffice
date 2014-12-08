@@ -3,8 +3,7 @@ package assignment6;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Deque;
-import java.util.concurrent.locks.Lock;
-import java.util.concurrent.locks.ReentrantLock;
+import java.util.Random;
 
 public class BoxOffice implements Runnable
 {
@@ -12,7 +11,6 @@ public class BoxOffice implements Runnable
 	private String name;
 	private ArrayList<Person> servedPeople;
 	private Theater show;
-	private Lock showLock;
 	
 	public BoxOffice()
 	{
@@ -25,13 +23,14 @@ public class BoxOffice implements Runnable
 		name = n;
 		servedPeople = new ArrayList<Person>();
 		show = t;
-		showLock = new ReentrantLock();
 	}
 	
 
 	private void buildQueue()
 	{
-		line = new ArrayDeque<Person>(500);
+		Random r =  new Random();
+		int lineSize = r.nextInt(1000);
+		line = new ArrayDeque<Person>(lineSize);
 		for(int k = 0; k < 500; k++)
 		{
 			line.add(new Person());
