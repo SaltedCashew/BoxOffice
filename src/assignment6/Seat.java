@@ -99,7 +99,6 @@ public class Seat
 	//Determines the section number using the given row and seat information
 	//Divides the house into 6 sections and assigns each sections int values.
 	//Lower section value equates to a higher seating priority
-	//
 	//"Lower" refers to rowsA-M, "Upper" refers to RowsN-AA, "Left" refers to seat 101-107, "Right" refers to seats 122-128
 	//Returns Priorities: Lower Middle=1, Lower Left=2, Lower Right=3, Upper Middle=4, Upper Left=5, Upper Right=6
 	private int determineSection(String row, int seat)

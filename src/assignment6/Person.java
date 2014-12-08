@@ -1,5 +1,10 @@
 package assignment6;
 
+/**
+ * Person Class - allows a person to have a ticket and info of the selling Box Office
+ * @author Zachary Subealdea, Brad Gray 
+ * @version 1.0
+ **/
 public class Person
 {
 	private String ticket;
@@ -7,7 +12,7 @@ public class Person
 	
 	/**
 	 * Constructor creates a new Person who acts as a customer for the theater.
-	 * Each person has a ticket with thier seating information plus which box office serviced them.
+	 * Each person has a ticket with their seating information plus which box office serviced them.
 	 **/
 	public Person()
 	{

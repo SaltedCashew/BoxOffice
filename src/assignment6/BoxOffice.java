@@ -119,7 +119,7 @@ public class BoxOffice implements Runnable
 	private void buildQueue()
 	{
 		Random r =  new Random();
-		int lineSize = r.nextInt((1000 - 100) + 1) + 100; //randome number between 100-1000
+		int lineSize = r.nextInt((1000 - 100) + 1) + 100; //random number between 100-1000
 		line = new ArrayDeque<Person>(lineSize);
 		for(int k = 0; k < lineSize; k++)
 		{
