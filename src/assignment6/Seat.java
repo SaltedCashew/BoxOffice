@@ -1,26 +1,27 @@
 package assignment6;
 
+/**
+ * Main seat class to build and use seat objects. 
+ * Creates seats with section number, row string, seat number and availability (Reserved / Available).
+ * @author Brad Gray, Zachary Subealdea
+ * @version 1.0
+ **/
 public class Seat
 {
-	private String row;
-	private int seatNum;
-	private enum attribute
-	{
-		RESERVED (1),
-		AVAILABLE (2);
-		
-		@SuppressWarnings("unused")
-		private int value;
-
-      private attribute(int value) 
-      {
-              this.value = value;
-      }
-	}
+	private enum attribute {RESERVED, AVAILABLE; }
 	@SuppressWarnings("unused")
 	private attribute availability;
+	private String row;
+	private int seatNum;
 	private int section;
 	
+	/**
+	 * Constructor given row string r and seat number int s.
+	 * Assigns row and seat number and uses both to determine the house section
+	 * Marks the seat as available
+	 * @param r row string
+	 * @param s seat number integer 
+	 **/
 	public Seat(String r, int s)
 	{
 		row = r;
@@ -29,31 +30,76 @@ public class Seat
 		availability = attribute.AVAILABLE;
 	}
 	
+	/**
+	 * Returns string using seat information: "Row r, Seat s"
+	 * @return string "Row r, Seat s"
+	 **/
 	@Override
 	public String toString()
 	{
 		return new String("Row " + row + ", Seat " + seatNum);
 	}
 	
+	/**
+	 * Converts implicit seat to key string - designed for hashmap function.
+	 * Returned string is simply "r s" where r is the row number and s is the seat number.
+	 * Purpose is to allow for easier searching in the hashmap
+	 * @return string "row seat"  
+	 **/
 	public String toKey(){
 		return new String (this.row + " " + this.seatNum);
 	}
 	
+	/**
+	 * Getter method to return the section number of implicit seat object
+	 * @return section number int
+	 **/
 	public int getSection()
 	{
 		return this.section;
 	}
 	
+	/**
+	 * Getter method to return the row of implicit seat object as a String.
+	 * Rows stored as strings: "A" through "Z" and "AA"
+	 * @return row number String
+	 **/
 	public String getRow()
 	{
 		return this.row;
 	}
 	
+	/**
+	 * Getter method to return the seat number of implicit seat object
+	 * @return seat number int
+	 **/
 	public int getSeatNumber()
 	{
 		return seatNum;
 	}
 	
+	/**
+	 * Marks the implicit seat object as reserved 
+	 **/
+	public void markSeatReserved()
+	{
+		this.availability = attribute.RESERVED;
+		
+	}
+	
+	/**
+	 * Marks the implicit seat object as reserved 
+	 **/
+	public void markSeatAvailable()
+	{
+		this.availability = attribute.AVAILABLE;
+		
+	}
+
+	//Determines the section number using the given row and seat information
+	//Divides the house into 6 sections and assigns each sections int values.
+	//Lower section value equates to a higher seating priority
+	//Lower Middle: 1, Lower Right: 2, Lower Left: 3, Upper Middle: 4, Upper Right: 5, Upper Left: 6
 	private int determineSection(String row, int seat)
 	{
 		int section = 0;
@@ -72,17 +118,4 @@ public class Seat
 		}
 		return section;
 	}
-
-	public void markSeatReserved()
-	{
-		this.availability = attribute.RESERVED;
-		
-	}
-	
-	public void markSeatAvailable()
-	{
-		this.availability = attribute.AVAILABLE;
-		
-	}
-
 }
