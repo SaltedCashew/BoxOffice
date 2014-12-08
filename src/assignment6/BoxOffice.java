@@ -46,17 +46,20 @@ public class BoxOffice implements Runnable
 		
 	}
 	
-	private synchronized void SellTickets()
+	private void SellTickets()
 	{
-	
+			Seat temp;
 			while(show.hasTickets())
 			{
-				Seat temp = show.sellSeat();
+				synchronized(this)
+				{
+					temp = show.sellSeat();
+				}
+				
 				temp.markSeatReserved();
 				Person tempPerson = line.pop();
 				tempPerson.setTicket(temp, name);
 				servedPeople.add(tempPerson);
-				System.out.println("Box office " + name + " just sold " + temp.toString());
 			}	
 	}
 

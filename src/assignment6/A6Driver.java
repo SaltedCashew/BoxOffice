@@ -20,8 +20,6 @@ public class A6Driver
 		Thread boB = new Thread(boxOfficeB);
 		boA.start();
 		boB.start();
-		
-
 	}
 
 }
