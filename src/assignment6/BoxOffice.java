@@ -12,7 +12,7 @@ import java.util.concurrent.locks.ReentrantLock;
  * Box Office Class as a runnable -  
  * Generates customer queues and sells tickets to theater passed in constructor.
  * @author Brad Gray, Zachary Subealdea
- * @version 1.0
+ * @version 1.1
  **/
 public class BoxOffice implements Runnable
 {
@@ -22,7 +22,7 @@ public class BoxOffice implements Runnable
 	private Theater show;
 	private Lock showLock;
 	private Condition OfficeBusyCondition;
-	
+
 	/**
 	 * Empty Constructor - should not be used.  
 	 * Results in empty box office - no customers, no theater, no name.
@@ -56,10 +56,10 @@ public class BoxOffice implements Runnable
 
 	
 	/**
-	 * If Box Office data null, does nothing - else runs to sell all tickets.
-	 * Box office data will be null if empty constructor was used. 
-	 * If null data, will print out message "This Box office has nothing to do!"
-	 * Else runs and sells tickets to the linked theater until no more seats available.  
+	 * Box office data will be null if empty constructor was used.
+	 * If Box Office data null, does nothing and prints corresponding message 
+	 * Otherwise, It will begin to sell all tickets until they have sold out.
+	 * Print out each ticket to the console and a sold out message when it is done.  
 	 **/
 	@Override
 	public void run()
@@ -69,19 +69,37 @@ public class BoxOffice implements Runnable
 			System.out.println("This Box office has nothing to do!");
 			return;
 		}
-		else{ sellTickets();}
-		
+		else
+		{ 
+			boolean repeat=true;
+			while(repeat)
+			{
+				if(show.hasTickets()==true)
+				{
+					sellTickets();
+				}
+				else{repeat=false;}
+			}
+			System.out.println("Sorry, there aren't any more tickets for " +name+" to sell");
+		}
 	}
 	
-	//PUT COMMENTS HERE!
+	
+	/*
+  	Checks for the next best available seat. 
+  	If a seat exists, it is reserved and assigned to the person next in line.
+  	The Office keeps track of each person it sells tickets to as well. 
+  	If the line becomes empty, more customers are added in this simulation 
+	*/
 	private void sellTickets()
 	{
 		Seat temp;
-		try{
+		try
+		{
 			showLock.lock();
-			while(show.hasTickets())
+			temp = show.bestAvailableSeat();
+			if (temp!=null)
 			{
-				temp = show.bestAvailableSeat();
 				temp.markSeatReserved();
 				if(line.isEmpty()) {buildQueue();}
 				Person tempPerson = line.pop();
@@ -89,16 +107,19 @@ public class BoxOffice implements Runnable
 				servedPeople.add(tempPerson);
 			}
 		}
-		finally{
-			showLock.unlock();
-		}
+		finally{	showLock.unlock();	}
+		
 	}
 	
-	//PUT COMMENTS HERE!
+	
+	/*
+  	Adds people to the line to simulate a constant flow of customers for the box offices.
+  	A random number of people between 100 and 1000 are added
+  	*/
 	private void buildQueue()
 	{
 		Random r =  new Random();
-		int lineSize = r.nextInt(1000);
+		int lineSize = r.nextInt((1000 - 100) + 1) + 100; //randome number between 100-1000
 		line = new ArrayDeque<Person>(lineSize);
 		for(int k = 0; k < lineSize; k++)
 		{
@@ -107,3 +128,4 @@ public class BoxOffice implements Runnable
 		
 	}
 }
+
